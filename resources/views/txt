@@ -1,0 +1,156 @@
+<div class="grid grid-cols-7 gap-2">
+                        <!-- Títulos: Días de la semana -->
+                        <div class="font-bold text-center p-2">Lunes</div>
+                        <div class="font-bold text-center p-2">Martes</div>
+                        <div class="font-bold text-center p-2">Miércoles</div>
+                        <div class="font-bold text-center p-2">Jueves</div>
+                        <div class="font-bold text-center p-2">Viernes</div>
+                        <div class="font-bold text-center p-2">Sábado</div>
+                        <div class="font-bold text-center p-2">Domingo</div>
+
+                        <!-- Horas: De 08:00 a 23:00 para cada día de la semana -->
+                        <!-- Fila 1: 08:00 -->
+                        <div class="border p-2 text-center">08:00</div>
+                        <div class="border p-2 text-center">08:00</div>
+                        <div class="border p-2 text-center">08:00</div>
+                        <div class="border p-2 text-center">08:00</div>
+                        <div class="border p-2 text-center">08:00</div>
+                        <div class="border p-2 text-center">08:00</div>
+                        <div class="border p-2 text-center">08:00</div>
+
+                        <!-- Fila 2: 09:00 -->
+                        <div class="border p-2 text-center">09:00</div>
+                        <div class="border p-2 text-center">09:00</div>
+                        <div class="border p-2 text-center">09:00</div>
+                        <div class="border p-2 text-center">09:00</div>
+                        <div class="border p-2 text-center">09:00</div>
+                        <div class="border p-2 text-center">09:00</div>
+                        <div class="border p-2 text-center">09:00</div>
+
+                        <!-- Repite lo mismo para las siguientes horas... -->
+                        <!-- Fila 3: 10:00 -->
+                        <div class="border p-2 text-center">10:00</div>
+                        <div class="border p-2 text-center">10:00</div>
+                        <div class="border p-2 text-center">10:00</div>
+                        <div class="border p-2 text-center">10:00</div>
+                        <div class="border p-2 text-center">10:00</div>
+                        <div class="border p-2 text-center">10:00</div>
+                        <div class="border p-2 text-center">10:00</div>
+
+                        <!-- Fila 4: 11:00 -->
+                        <div class="border p-2 text-center">11:00</div>
+                        <div class="border p-2 text-center">11:00</div>
+                        <div class="border p-2 text-center">11:00</div>
+                        <div class="border p-2 text-center">11:00</div>
+                        <div class="border p-2 text-center">11:00</div>
+                        <div class="border p-2 text-center">11:00</div>
+                        <div class="border p-2 text-center">11:00</div>
+
+                        <!-- Fila 5: 12:00 -->
+                        <div class="border p-2 text-center">12:00</div>
+                        <div class="border p-2 text-center">12:00</div>
+                        <div class="border p-2 text-center">12:00</div>
+                        <div class="border p-2 text-center">12:00</div>
+                        <div class="border p-2 text-center">12:00</div>
+                        <div class="border p-2 text-center">12:00</div>
+                        <div class="border p-2 text-center">12:00</div>
+
+                        <!-- Fila 6: 13:00 -->
+                        <div class="border p-2 text-center">13:00</div>
+                        <div class="border p-2 text-center">13:00</div>
+                        <div class="border p-2 text-center">13:00</div>
+                        <div class="border p-2 text-center">13:00</div>
+                        <div class="border p-2 text-center">13:00</div>
+                        <div class="border p-2 text-center">13:00</div>
+                        <div class="border p-2 text-center">13:00</div>
+
+                        <!-- Fila 7: 14:00 -->
+                        <div class="border p-2 text-center">14:00</div>
+                        <div class="border p-2 text-center">14:00</div>
+                        <div class="border p-2 text-center">14:00</div>
+                        <div class="border p-2 text-center">14:00</div>
+                        <div class="border p-2 text-center">14:00</div>
+                        <div class="border p-2 text-center">14:00</div>
+                        <div class="border p-2 text-center">14:00</div>
+
+                        <!-- Fila 8: 15:00 -->
+                        <div class="border p-2 text-center">15:00</div>
+                        <div class="border p-2 text-center">15:00</div>
+                        <div class="border p-2 text-center">15:00</div>
+                        <div class="border p-2 text-center">15:00</div>
+                        <div class="border p-2 text-center">15:00</div>
+                        <div class="border p-2 text-center">15:00</div>
+                        <div class="border p-2 text-center">15:00</div>
+
+                        <!-- Fila 9: 16:00 -->
+                        <div class="border p-2 text-center">16:00</div>
+                        <div class="border p-2 text-center">16:00</div>
+                        <div class="border p-2 text-center">16:00</div>
+                        <div class="border p-2 text-center">16:00</div>
+                        <div class="border p-2 text-center">16:00</div>
+                        <div class="border p-2 text-center">16:00</div>
+                        <div class="border p-2 text-center">16:00</div>
+
+                        <!-- Fila 10: 17:00 -->
+                        <div class="border p-2 text-center">17:00</div>
+                        <div class="border p-2 text-center">17:00</div>
+                        <div class="border p-2 text-center">17:00</div>
+                        <div class="border p-2 text-center">17:00</div>
+                        <div class="border p-2 text-center">17:00</div>
+                        <div class="border p-2 text-center">17:00</div>
+                        <div class="border p-2 text-center">17:00</div>
+
+                        <!-- Fila 11: 18:00 -->
+                        <div class="border p-2 text-center">18:00</div>
+                        <div class="border p-2 text-center">18:00</div>
+                        <div class="border p-2 text-center">18:00</div>
+                        <div class="border p-2 text-center">18:00</div>
+                        <div class="border p-2 text-center">18:00</div>
+                        <div class="border p-2 text-center">18:00</div>
+                        <div class="border p-2 text-center">18:00</div>
+
+                        <!-- Fila 12: 19:00 -->
+                        <div class="border p-2 text-center">19:00</div>
+                        <div class="border p-2 text-center">19:00</div>
+                        <div class="border p-2 text-center">19:00</div>
+                        <div class="border p-2 text-center">19:00</div>
+                        <div class="border p-2 text-center">19:00</div>
+                        <div class="border p-2 text-center">19:00</div>
+                        <div class="border p-2 text-center">19:00</div>
+
+                        <!-- Fila 13: 20:00 -->
+                        <div class="border p-2 text-center">20:00</div>
+                        <div class="border p-2 text-center">20:00</div>
+                        <div class="border p-2 text-center">20:00</div>
+                        <div class="border p-2 text-center">20:00</div>
+                        <div class="border p-2 text-center">20:00</div>
+                        <div class="border p-2 text-center">20:00</div>
+                        <div class="border p-2 text-center">20:00</div>
+
+                        <!-- Fila 14: 21:00 -->
+                        <div class="border p-2 text-center">21:00</div>
+                        <div class="border p-2 text-center">21:00</div>
+                        <div class="border p-2 text-center">21:00</div>
+                        <div class="border p-2 text-center">21:00</div>
+                        <div class="border p-2 text-center">21:00</div>
+                        <div class="border p-2 text-center">21:00</div>
+                        <div class="border p-2 text-center">21:00</div>
+
+                        <!-- Fila 15: 22:00 -->
+                        <div class="border p-2 text-center">22:00</div>
+                        <div class="border p-2 text-center">22:00</div>
+                        <div class="border p-2 text-center">22:00</div>
+                        <div class="border p-2 text-center">22:00</div>
+                        <div class="border p-2 text-center">22:00</div>
+                        <div class="border p-2 text-center">22:00</div>
+                        <div class="border p-2 text-center">22:00</div>
+
+                        <!-- Fila 16: 23:00 -->
+                        <div class="border p-2 text-center">23:00</div>
+                        <div class="border p-2 text-center">23:00</div>
+                        <div class="border p-2 text-center">23:00</div>
+                        <div class="border p-2 text-center">23:00</div>
+                        <div class="border p-2 text-center">23:00</div>
+                        <div class="border p-2 text-center">23:00</div>
+                        <div class="border p-2 text-center">23:00</div>
+                    </div>

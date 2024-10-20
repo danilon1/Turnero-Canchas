@@ -10,7 +10,7 @@
         </div>
 
         <!-- apellido -->
-        <div>
+        <div class="mt-4">
             <x-input-label for="apellido" :value="__('Apellido')" />
             <x-text-input id="apellido" class="block mt-1 w-full" type="text" name="apellido" :value="old('apellido')" required autocomplete="apellido" />
             <x-input-error :messages="$errors->get('apellido')" class="mt-2" />
@@ -21,6 +21,13 @@
             <x-input-label for="email" :value="__('Email')" />
             <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autocomplete="username" />
             <x-input-error :messages="$errors->get('email')" class="mt-2" />
+        </div>
+
+        <!-- telefono -->
+        <div class="mt-4">
+            <x-input-label for="telefono" :value="__('Teléfono')" />
+            <x-text-input id="telefono" class="block mt-1 w-full" type="text" name="telefono" :value="old('telefono')" required autocomplete="telefono" />
+            <x-input-error :messages="$errors->get('telefono')" class="mt-2" />
         </div>
 
         <!-- Password -->

@@ -17,6 +17,8 @@ return new class extends Migration
             $table->id();
             $table->string('nombre');
             $table->string('deporte');
+            $table->string('tipo');
+            $table->string('ubicacion');
             $table->enum('estado', ['disponible', 'mantenimiento'])->default('disponible');
             $table->timestamps();
         });

@@ -16,24 +16,21 @@
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 
     <style>
-        /* Definir la imagen de fondo en el estilo CSS */
         .bg-fondo {
             background-image: url('/images/structure-stadium-baseball-field-arena-court-bernabeu-726222-pxhere.com.jpg');
             background-size: cover;
-            /* Ajusta la imagen para cubrir toda la pantalla */
             background-position: center;
-            /* Centra la imagen */
             background-repeat: no-repeat;
-            /* No repite la imagen */
         }
     </style>
+    @livewireStyles
 
 </head>
 
-<body class="font-sans antialiased">
-    <div class="min-h-screen bg-gray-100">
+<body class="font-sans antialiased bg-fondo">
+    <div class="min-h-screen flex flex-col">
         <!-- Barra de navegación -->
-        <nav class="bg-gray-800 p-4">
+        <nav class="bg-gray-800 p-4 h-16">
             <div class="container mx-auto flex justify-between items-center">
                 <!-- Logo o nombre del sitio -->
                 <a href="{{ url('/') }}" class="text-white font-bold text-lg">Home</a>
@@ -55,16 +52,29 @@
         </nav>
         <!-- Page Content -->
 
-        <main class="bg-fondo flex items-center justify-center bg-gray-100 h-screen">
+        <main class="flex flex-1 items-center justify-center">
 
-            <div class="w-full text-center">
-                <div class="bg-white border border-gray-200 rounded-lg shadow-md mb-4 flex items-center justify-center h-32"> <!-- Añade flex, items-center y justify-center -->
-                    <h1 class="text-4xl font-bold mb-6">Canchas de fútbol</h1>
+            <div class="w-full max-w-4xl text-center">
+                <div class="w-full text-center">
+                    <div class="bg-white border border-gray-200 rounded-lg shadow-md mb-4 flex items-center justify-center h-32">
+                        <h1 class="text-4xl font-bold mb-6">Seleccioná los detalles del turno</h1>
+                    </div>
                 </div>
+                @livewire('seleccion-cancha-futbol', ['canchas_disponibles' => $canchas_disponibles])
+                <div class="flex mt-4">
+                    <a href="{{ url()->previous() }}" class="inline-flex items-center px-4 py-2 text-sm font-medium bg-white border border-transparent rounded-md shadow-sm hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+                        Volver
+                    </a>
+                </div>
+
+
             </div>
+
+
 
         </main>
     </div>
+    @livewireScripts
 </body>
 
 </html>
