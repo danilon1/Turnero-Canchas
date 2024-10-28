@@ -10,8 +10,10 @@ class FutbolController extends Controller
     public function canchasDisponibles()
     {
         return Cancha::where('deporte', 'Fútbol')
-            ->where('estado', 'disponible',)
-            ->get();
+            ->where('estado', 'disponible')
+            ->get()
+            ->unique('tipo')
+            ->values();
     }
 
     public function futbol()

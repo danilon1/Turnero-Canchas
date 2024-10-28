@@ -2,52 +2,53 @@
 
 namespace App\Http\Livewire;
 
-use Carbon\Carbon;
 use Livewire\Component;
-use Monolog\Processor\HostnameProcessor;
+use App\Models\Cancha;
+use App\Models\Turno;
+use Carbon\Carbon;
+
 
 class SeleccionCanchaFutbol extends Component
 {
-    public $tipo;
-    public $rango_fecha = [];
-    public $dia;
-    public $hora;
-    public $horas_disponibles = [];
-    public $paso = 1;
     public $canchasDisponibles;
+    public $idCancha;
+    public $nombreCancha;
+    public $idCanchaSeleccionada = '';
+    public $tamanioCancha = '';
+    public $proximasFechas = [];
+    public $turnosEnUso;
+    public $ocupacion;
+    public $horariosDeTrabajo = ['08:00:00', '09:00:00', '10:00:00', '11:00:00', '12:00:00', '13:00:00', '14:00:00', '15:00:00', '16:00:00', '17:00:00', '18:00:00', '19:00:00', '20:00:00', '21:00:00', '22:00:00'];
+    public $diasDeTrabajo = ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado', 'Domingo'];
 
     public function mount($canchas_disponibles)
     {
         $this->canchasDisponibles = $canchas_disponibles;
+        $this->nombreCancha = collect();
     }
 
-
-    public function seleccionarTipoCancha($tipo)
+    public function showNombreCancha($tamanioCancha)
     {
-        $this->tipo = $tipo;
 
-        Carbon::setLocale('es');
-        for ($i = 0; $i <= 14; $i++) {
-            $fecha = Carbon::now()->addDays($i);
-            $this->rango_fecha[] = [
-                'dia' => $fecha->dayName,
-                'fecha' => $fecha->format('d-m-Y')
-            ];
+        $this->tamanioCancha = $tamanioCancha;
+        $this->nombreCancha = Cancha::where('tipo', $tamanioCancha)->where('estado', 'disponible')->get();
+    }
+
+    public function showFechasCancha($idCanchaSeleccionada)
+    {
+        $this->idCanchaSeleccionada = $idCanchaSeleccionada;
+
+        //Crea un array desde mañana hasta los próximo 14 días
+        for ($i = 0; $i < 14; $i++) {
+            $fecha = Carbon::today()->addDays($i)->format('Y-m-d');
+            $this->proximasFechas[$i] = $fecha;
         }
-        $this->paso = 2;
-    }
 
-    public function seleccionarDiaCancha($dia)
-    {
-
-        $this->dia = $dia;
-        $this->horas_disponibles = ['08:00', '09:00', '11:00', '12:00', '14:00', '16:00', '20:00', '21:00'];
-        $this->paso = 3;
-    }
-
-    public function seleccionarHoraCancha($hora)
-    {
-        $this->hora = $hora;
+        //Consulta los turnos de la cancha seleccionada de hoy en adelante
+        $fecha = Carbon::today();
+        $fecha->format('Y-m-d');
+        $this->idCancha = Cancha::find($idCanchaSeleccionada);
+        $this->turnosEnUso = Turno::where('cancha_id', $this->idCancha->id)->where('fecha_inicio', '>', $fecha)->get();
     }
 
     public function render()
