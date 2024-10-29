@@ -15,14 +15,18 @@
 
         <div class="mb-3">
             <label for="idCanchaSeleccionada" class="form-label">Nombre de la cancha</label>
-
             <select id="idCanchaSeleccionada" class="form-control" name="idCanchaSeleccionada" wire:model="idCanchaSeleccionada" wire:change="showFechasCancha($event.target.value)">
+
+                @if(count($this->nombreCancha) === 0)
                 <option value="" selected disabled>Elegir</option>
-                @if($nombreCancha->isNotEmpty())
-                @foreach($nombreCancha as $canchas)
-                <option value="{{$canchas->id}}">{{$canchas->nombre}}</option>
-                @endforeach
                 @endif
+                @foreach($nombreCancha as $canchas)
+                @if($canchas['nombre'] === 'Elegir')
+                <option value="" selected>Elegir</option>
+                @else
+                <option value="{{ $canchas['id'] }}">{{ $canchas['nombre'] }}</option>
+                @endif
+                @endforeach
             </select>
         </div>
 
@@ -46,7 +50,7 @@
                         @foreach($proximasFechas as $dias)
                         @foreach($turnosEnUso as $turnos)
                         @if($turnos->fecha_inicio == $dias && $turnos->hora_inicio == $horas)
-                        <td class="border border-gray-300 px-4 py-2 bg-gray-300 text-black">{{$turnos->hora_inicio}}</td>
+                        <td class="border border-gray-300 px-4 py-2 bg-red-300 text-black">{{$turnos->hora_inicio}}</td>
                         @else
                         <td class="border border-gray-300 px-4 py-2">{{$horas}}</td>
                         @endif
