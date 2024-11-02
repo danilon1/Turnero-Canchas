@@ -15,21 +15,33 @@ class SeleccionCanchaFutbol extends Component
     public $nombreCancha;
     public $idCanchaSeleccionada = '';
     public $tamanioCancha = '';
+    public $hoy;
     public $proximasFechas = [];
-    public $turnosEnUso;
-    public $ocupacion;
+    public $turnosEnUso = [];
     public $horariosDeTrabajo = ['08:00:00', '09:00:00', '10:00:00', '11:00:00', '12:00:00', '13:00:00', '14:00:00', '15:00:00', '16:00:00', '17:00:00', '18:00:00', '19:00:00', '20:00:00', '21:00:00', '22:00:00'];
     public $diasDeTrabajo = ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado', 'Domingo'];
-
+    public $lunesActual;
+    public $lunesEnVista = null;
 
     public function mount($canchas_disponibles)
     {
         $this->canchasDisponibles = $canchas_disponibles;
         $this->nombreCancha = collect();
+        // Obtiene el día de hoy
+        $this->hoy = Carbon::today();
+        // Encuentra el lunes de esta semana
+        $this->lunesActual = $this->hoy->copy()->startOfWeek(Carbon::MONDAY);
     }
 
     public function showNombreCancha($tamanioCancha)
     {
+
+        //Este if es para resetear la variable cuando el usuario cambia de tamaño de cancha.
+        if ($this->idCanchaSeleccionada != '') {
+            $this->idCanchaSeleccionada = '';
+        }
+
+        //Consulta a la base el listado de canchas disponibles de acuerdo al tamaño elegido.
         $this->tamanioCancha = $tamanioCancha;
         $this->nombreCancha = Cancha::where('tipo', $tamanioCancha)->where('estado', 'disponible')->get()->toArray();
 
@@ -44,7 +56,8 @@ class SeleccionCanchaFutbol extends Component
             'created_at' => '',
             'updated_at' => ''
         ]);
-        $this->turnosEnUso = false;  //Se limpia la variable para resetear la vista de la tabla de horarios.
+
+        $this->turnosEnUso = false;  //Se limpia la variable para resetear la vista de la tabla de horarios cuando el usuario cambia de tamaño de cancha.
     }
 
     public function showFechasCancha($idCanchaSeleccionada)
@@ -55,20 +68,80 @@ class SeleccionCanchaFutbol extends Component
             return;
         }
 
+        $this->proximasFechas = [];
+        $this->turnosEnUso = [];
+        $this->lunesEnVista = null;
+
         $this->idCanchaSeleccionada = $idCanchaSeleccionada;
 
-        //Crea un array desde mañana hasta los próximo 14 días
-        for ($i = 0; $i < 14; $i++) {
-            $fecha = Carbon::today()->addDays($i)->format('Y-m-d');
-            $this->proximasFechas[$i] = $fecha;
+        $domingoActual = $this->lunesActual->copy()->addDays(6);
+        // Bucle para agregar 7 días a partir del lunes de la semana
+        for ($i = 0; $i < 7; $i++) {
+            $this->proximasFechas[$i] = $this->lunesActual->copy()->addDays($i)->format('Y-m-d');
         }
 
-        //Consulta los turnos de la cancha seleccionada de hoy en adelante
-        $fecha = Carbon::today();
-        $fecha->format('Y-m-d');
+        //Consulta los turnos de la cancha seleccionada del lunes de la semana en adelante
         $this->idCancha = Cancha::find($idCanchaSeleccionada);
-        $this->turnosEnUso = Turno::where('cancha_id', $this->idCancha->id)->where('fecha_inicio', '>', $fecha)->get();
+        $this->turnosEnUso = Turno::where('cancha_id', $this->idCancha->id)
+            ->where('fecha_inicio', '>=', $this->lunesActual)
+            ->where('fecha_inicio', '<=', $domingoActual)
+            ->get();
     }
+
+    public function anteriorSemana($lunesEnVista)
+    {
+        $this->turnosEnUso = [];
+        $this->proximasFechas = [];
+
+        if (is_null($this->lunesEnVista)) {
+            $crearProximoLunes = $this->lunesActual->copy()->addDays(-7);
+            $this->lunesEnVista = $crearProximoLunes;
+        } else {
+            $lunesEnVista = $this->lunesEnVista->copy()->addDays(-7);
+            $this->lunesEnVista = $lunesEnVista;
+        }
+
+        $fechaInicio = $this->lunesEnVista->format('Y-m-d');
+        $fechaFin = $this->lunesEnVista->copy()->addDays(7)->format('Y-m-d');
+
+        // Bucle para agregar 7 días a partir del lunes de la semana
+        for ($i = 0; $i < 7; $i++) {
+            $this->proximasFechas[$i] = $this->lunesEnVista->copy()->addDays($i)->format('Y-m-d');
+        }
+
+        $this->turnosEnUso = Turno::where('cancha_id', $this->idCancha->id)
+            ->where('fecha_inicio', '>=', $fechaInicio)
+            ->where('fecha_inicio', '<=', $fechaFin)
+            ->get();
+    }
+
+    public function proximaSemana($lunesEnVista)
+    {
+        $this->turnosEnUso = [];
+        $this->proximasFechas = [];
+
+        if (is_null($this->lunesEnVista)) {
+            $crearProximoLunes = $this->lunesActual->copy()->addDays(7);
+            $this->lunesEnVista = $crearProximoLunes;
+        } else {
+            $lunesEnVista = $this->lunesEnVista->copy()->addDays(7);
+            $this->lunesEnVista = $lunesEnVista;
+        }
+
+        $fechaInicio = $this->lunesEnVista->format('Y-m-d');
+        $fechaFin = $this->lunesEnVista->copy()->addDays(7)->format('Y-m-d');
+
+        // Bucle para agregar 7 días a partir del lunes de la semana
+        for ($i = 0; $i < 7; $i++) {
+            $this->proximasFechas[$i] = $this->lunesEnVista->copy()->addDays($i)->format('Y-m-d');
+        }
+
+        $this->turnosEnUso = Turno::where('cancha_id', $this->idCancha->id)
+            ->where('fecha_inicio', '>=', $fechaInicio)
+            ->where('fecha_inicio', '<=', $fechaFin)
+            ->get();
+    }
+
     public function render()
     {
         return view('livewire.seleccion-cancha-futbol');

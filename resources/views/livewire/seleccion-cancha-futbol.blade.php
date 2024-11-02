@@ -17,9 +17,11 @@
             <label for="idCanchaSeleccionada" class="form-label">Nombre de la cancha</label>
             <select id="idCanchaSeleccionada" class="form-control" name="idCanchaSeleccionada" wire:model="idCanchaSeleccionada" wire:change="showFechasCancha($event.target.value)">
 
+
                 @if(count($this->nombreCancha) === 0)
                 <option value="" selected disabled>Elegir</option>
                 @endif
+
                 @foreach($nombreCancha as $canchas)
                 @if($canchas['nombre'] === 'Elegir')
                 <option value="" selected>Elegir</option>
@@ -28,6 +30,24 @@
                 @endif
                 @endforeach
             </select>
+        </div>
+
+        <div class="flex justify-center space-x-4 mt-4">
+            <!-- Botón de página anterior -->
+            <button
+                type="button"
+                class="px-4 py-2 bg-gray-200 text-gray-700 rounded hover:bg-gray-300 disabled:bg-gray-100 disabled:text-gray-400"
+                wire:click="anteriorSemana('{{ $lunesEnVista }}')">
+                Anterior semana
+            </button>
+            <p>Estás viendo la semana {{$lunesEnVista}}</p>
+            <!-- Botón de siguiente página -->
+            <button
+                type="button"
+                class="px-4 py-2 bg-gray-200 text-gray-700 rounded hover:bg-gray-300 disabled:bg-gray-100 disabled:text-gray-400"
+                wire:click="proximaSemana('{{ $lunesEnVista }}')">
+                Próxima semana
+            </button>
         </div>
 
         <div class="overflow-x-auto">
@@ -45,16 +65,21 @@
                 </thead>
                 <tbody>
                     @if($turnosEnUso)
-                    @foreach($horariosDeTrabajo as $horas)
+                    @php
+                    $turnosOcupados = [];
+                    foreach ($turnosEnUso as $turno) {
+                    $turnosOcupados[$turno->fecha_inicio][$turno->hora_inicio] = true;
+                    }
+                    @endphp
+
+                    @foreach($horariosDeTrabajo as $hora)
                     <tr>
-                        @foreach($proximasFechas as $dias)
-                        @foreach($turnosEnUso as $turnos)
-                        @if($turnos->fecha_inicio == $dias && $turnos->hora_inicio == $horas)
-                        <td class="border border-gray-300 px-4 py-2 bg-red-300 text-black">{{$turnos->hora_inicio}}</td>
+                        @foreach($proximasFechas as $dia)
+                        @if(isset($turnosOcupados[$dia][$hora]))
+                        <td class="border border-gray-300 px-4 py-2 bg-red-400">{{ $hora }}</td>
                         @else
-                        <td class="border border-gray-300 px-4 py-2">{{$horas}}</td>
+                        <td class="border border-gray-300 px-4 py-2">{{ $hora }}</td>
                         @endif
-                        @endforeach
                         @endforeach
                     </tr>
                     @endforeach
@@ -62,7 +87,5 @@
                 </tbody>
             </table>
         </div>
-
-
     </form>
 </div>
