@@ -22,6 +22,11 @@ class SeleccionCanchaFutbol extends Component
     public $diasDeTrabajo = ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado', 'Domingo'];
     public $lunesActual;
     public $lunesEnVista = null;
+    public $semanaActual;
+    public $isOpen = false;
+    public $refresh;
+
+    protected $listeners = ['reservaFinalizada' => 'reservaFinalizada'];
 
     public function mount($canchas_disponibles)
     {
@@ -31,6 +36,7 @@ class SeleccionCanchaFutbol extends Component
         $this->hoy = Carbon::today();
         // Encuentra el lunes de esta semana
         $this->lunesActual = $this->hoy->copy()->startOfWeek(Carbon::MONDAY);
+        $this->semanaActual = $this->hoy->copy()->startOfWeek(Carbon::MONDAY);
     }
 
     public function showNombreCancha($tamanioCancha)
@@ -140,6 +146,23 @@ class SeleccionCanchaFutbol extends Component
             ->where('fecha_inicio', '>=', $fechaInicio)
             ->where('fecha_inicio', '<=', $fechaFin)
             ->get();
+    }
+
+    public function modal($dia, $hora)
+    {
+        $idCancha = $this->idCancha->id;
+        $this->emit('abrirModal', $dia, $hora, $idCancha);
+    }
+
+    public function reservaFinalizada()
+    {
+        if (is_null($this->lunesEnVista)) {
+            $this->lunesEnVista = $this->lunesActual->copy()->addDays(-7);
+            $this->proximaSemana($this->lunesEnVista);
+        } else {
+            $this->lunesEnVista = $this->lunesEnVista->copy()->addDays(-7);
+            $this->proximaSemana($this->lunesEnVista);
+        }
     }
 
     public function render()

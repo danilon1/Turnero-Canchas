@@ -19,6 +19,7 @@
         .bg-fondo {
             background-image: url('/images/structure-stadium-baseball-field-arena-court-bernabeu-726222-pxhere.com.jpg');
             background-size: cover;
+            background-attachment: fixed;
             background-position: center;
             background-repeat: no-repeat;
         }
@@ -52,22 +53,21 @@
         </nav>
         <!-- Page Content -->
 
-        <main class="flex flex-1 items-center justify-center">
+        <main class="flex flex-1  justify-center">
 
-            <div class="w-full max-w-4xl text-center">
+            <div class="w-full max-w-4xl text-center mt-4">
                 <div class="w-full text-center">
                     <div class="bg-white border border-gray-200 rounded-lg shadow-md mb-4 flex items-center justify-center h-32">
                         <h1 class="text-4xl font-bold mb-6">Seleccioná los detalles del turno</h1>
                     </div>
                 </div>
                 @livewire('seleccion-cancha-futbol', ['canchas_disponibles' => $canchas_disponibles])
+
                 <div class="flex mt-4">
-                    <a href="{{ url()->previous() }}" class="inline-flex items-center px-4 py-2 text-sm font-medium bg-white border border-transparent rounded-md shadow-sm hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+                    <a href="{{ url()->previous() }}" class="inline-flex items-center px-4 py-2 text-sm font-medium bg-white border border-transparent rounded-md shadow-sm hover:bg-blue-700 hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
                         Volver
                     </a>
                 </div>
-
-
             </div>
 
 

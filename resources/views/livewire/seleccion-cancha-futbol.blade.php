@@ -1,56 +1,58 @@
 <div class="bg-white p-4 rounded-lg">
 
     <form>
+
         <div class="mb-3">
-            <label for="tamanioCancha" class="form-label">Tamaño de la cancha</label>
+
+
+            @livewire('modal-reserva-futbol', ['isOpen' => $isOpen])
+            <label for="tamanioCancha" class="form-label"></label>
             <select id="tamanioCancha" class="form-control" name="tamanioCancha" wire:model="tamanioCancha" wire:change="showNombreCancha($event.target.value)">
-                <option value="" selected disabled>Elegir</option>
+                <option value="" selected disabled>Seleccionar tamaño de cancha</option>
                 @if($canchasDisponibles)
                 @foreach($canchasDisponibles as $canchas)
                 <option value="{{$canchas->tipo}}">{{$canchas->tipo}}</option>
                 @endforeach
                 @endif
             </select>
-        </div>
+            <label for="idCanchaSeleccionada" class="form-label"></label>
 
-        <div class="mb-3">
-            <label for="idCanchaSeleccionada" class="form-label">Nombre de la cancha</label>
             <select id="idCanchaSeleccionada" class="form-control" name="idCanchaSeleccionada" wire:model="idCanchaSeleccionada" wire:change="showFechasCancha($event.target.value)">
-
-
                 @if(count($this->nombreCancha) === 0)
-                <option value="" selected disabled>Elegir</option>
+                <option value="" selected disabled>Seleccionar nombre de cancha</option>
                 @endif
 
                 @foreach($nombreCancha as $canchas)
                 @if($canchas['nombre'] === 'Elegir')
-                <option value="" selected>Elegir</option>
+                <option value="" selected>Seleccionar nombre de cancha</option>
                 @else
                 <option value="{{ $canchas['id'] }}">{{ $canchas['nombre'] }}</option>
                 @endif
                 @endforeach
             </select>
         </div>
-
-        <div class="flex justify-center space-x-4 mt-4">
+        @if($turnosEnUso)
+        <div class="flex justify-center items-center space-x-4 m-4">
             <!-- Botón de página anterior -->
             <button
                 type="button"
-                class="px-4 py-2 bg-gray-200 text-gray-700 rounded hover:bg-gray-300 disabled:bg-gray-100 disabled:text-gray-400"
+                class="px-4 py-2 bg-blue-200 rounded hover:bg-blue-500 hover:text-white disabled:bg-gray-100 disabled:text-gray-400"
                 wire:click="anteriorSemana('{{ $lunesEnVista }}')">
                 Anterior semana
             </button>
-            <p>Estás viendo la semana {{$lunesEnVista}}</p>
+            <p><b>Estás viendo la semana @if(is_null($lunesEnVista)) {{$semanaActual->format('d-m-Y')}}@else {{$lunesEnVista->format('d-m-Y')}} @endif</b></p>
             <!-- Botón de siguiente página -->
             <button
                 type="button"
-                class="px-4 py-2 bg-gray-200 text-gray-700 rounded hover:bg-gray-300 disabled:bg-gray-100 disabled:text-gray-400"
+                class="px-4 py-2 bg-blue-200 rounded hover:bg-blue-500 hover:text-white disabled:bg-gray-100 disabled:text-gray-400"
                 wire:click="proximaSemana('{{ $lunesEnVista }}')">
                 Próxima semana
             </button>
         </div>
+        @endif
 
         <div class="overflow-x-auto">
+            @if($turnosEnUso)
             <table class="min-w-full border border-gray-300">
                 <thead>
                     <tr>
@@ -66,6 +68,7 @@
                 <tbody>
                     @if($turnosEnUso)
                     @php
+                    $key = 0;
                     $turnosOcupados = [];
                     foreach ($turnosEnUso as $turno) {
                     $turnosOcupados[$turno->fecha_inicio][$turno->hora_inicio] = true;
@@ -75,10 +78,13 @@
                     @foreach($horariosDeTrabajo as $hora)
                     <tr>
                         @foreach($proximasFechas as $dia)
+                        @php $key++; @endphp
                         @if(isset($turnosOcupados[$dia][$hora]))
-                        <td class="border border-gray-300 px-4 py-2 bg-red-400">{{ $hora }}</td>
+                        <td wire:key="'{{$key}}-{{$dia}}'" class="cursor-not-allowed border border-gray-300 px-4 py-2 bg-red-400">{{ $hora }}</td>
                         @else
-                        <td class="border border-gray-300 px-4 py-2">{{ $hora }}</td>
+                        <td wire:key="'{{$key}}-{{$dia}}'" wire:click="modal('{{$dia}}','{{$hora}}')" class="cursor-pointer border border-gray-300 px-4 py-2">
+                            {{ $hora }}
+                        </td>
                         @endif
                         @endforeach
                     </tr>
@@ -86,6 +92,7 @@
                     @endif
                 </tbody>
             </table>
+            @endif
         </div>
     </form>
 </div>
