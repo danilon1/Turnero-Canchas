@@ -14,10 +14,19 @@
 
     <!-- Scripts -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
+    <style>
+        .bg-fondo {
+            background-image: url('/images/structure-stadium-baseball-field-arena-court-bernabeu-726222-pxhere.com.jpg');
+            background-size: cover;
+            background-attachment: fixed;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+    </style>
 </head>
 
-<body class="font-sans antialiased">
-    <div class="min-h-screen bg-gray-100">
+<body class="bg-fondo font-sans antialiased">
+    <div class="min-h-screen ">
         @include('layouts.navigation')
 
         <!-- Page Heading -->

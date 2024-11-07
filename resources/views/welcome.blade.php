@@ -30,19 +30,20 @@
 
 </head>
 
-<body class="font-sans antialiased">
+<body class="bg-fondo font-sans antialiased">
     <div class="min-h-screen bg-gray-100">
         <!-- Barra de navegación -->
-        <nav class="bg-gray-800 p-4">
+        <nav class="bg-gray-800 p-4 fixed top-0 left-0 right-0 z-10">
             <div class="container mx-auto flex justify-between items-center">
                 <!-- Logo o nombre del sitio -->
                 <a href="{{ url('/') }}" class="text-white font-bold text-lg">Home</a>
 
                 <!-- Menú de navegación -->
-                <div>
+                <div class="flex">
                     <!-- Si el usuario está autenticado -->
                     @auth
-                    <a href="{{ url('/dashboard') }}" class="text-gray-300 hover:text-white px-3">Dashboard</a>
+                    <p class="text-gray-300 px-3">¡Hola {{auth()->user()->nombre}}!</p>
+                    <a href="{{ url('/misturnos') }}" class="text-gray-300 hover:text-white px-3">Mis Turnos</a>
                     @else
                     <!-- Si el usuario no está autenticado -->
                     <a href="{{ route('login') }}" class="text-gray-300 hover:text-white px-3">Iniciar Sesión</a>

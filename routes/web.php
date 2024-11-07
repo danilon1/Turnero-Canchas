@@ -5,6 +5,7 @@ use App\Http\Controllers\FutbolController;
 use App\Http\Controllers\BasquetController;
 use App\Http\Controllers\VoleyController;
 use App\Http\Controllers\PadelController;
+use App\Http\Controllers\MisTurnosController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -20,12 +21,14 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('welcome');
-});
+})->name('welcome');
 
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
+Route::get('/misturnos', [MisTurnosController::class, 'MisTurnos'])->name('misturnos')->middleware('auth');
+Route::delete('/turnos/{turno}', [MisTurnosController::class, 'eliminar'])->name('turnos.eliminar');
 
 Route::get('/futbol', [FutbolController::class, 'futbol'])->name('futbol');
 Route::get('/basquet', [BasquetController::class, 'basquet'])->name('basquet');

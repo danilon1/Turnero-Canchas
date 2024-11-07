@@ -40,7 +40,7 @@
                 <div>
                     <!-- Si el usuario está autenticado -->
                     @auth
-                    <a href="{{ url('/dashboard') }}" class="text-gray-300 hover:text-white px-3">Dashboard</a>
+                    <a href="{{ url('/misturnos') }}" class="text-gray-300 hover:text-white px-3">Mis turnos</a>
                     @else
                     <!-- Si el usuario no está autenticado -->
                     <a href="{{ route('login') }}" class="text-gray-300 hover:text-white px-3">Iniciar Sesión</a>
