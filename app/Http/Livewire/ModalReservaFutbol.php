@@ -2,6 +2,8 @@
 
 namespace App\Http\Livewire;
 
+use App\Mail\TurnoCreado;
+use Illuminate\Support\Facades\Mail;
 use Livewire\Component;
 use Carbon\Carbon;
 use App\Models\Turno;
@@ -64,8 +66,11 @@ class ModalReservaFutbol extends Component
             'fecha_fin' => $fechaInicio,
             'hora_fin' => $horaFin,
         ]);
+
+        Mail::to(env('MAIL_TO'))->send(new TurnoCreado($this->dia, $horaString));
+
         $this->isOpen = false;
-        $this->emit('reservaFinalizada');
+        return redirect()->route('misturnos');
     }
 
     public function render()
