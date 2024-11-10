@@ -82,7 +82,7 @@
                         @if(isset($turnosOcupados[$dia][$hora]))
                         <td wire:key="'{{$key}}-{{$dia}}'" class="cursor-not-allowed border border-gray-300 px-4 py-2 bg-red-400">{{ $hora }}</td>
                         @else
-                        <td wire:key="'{{$key}}-{{$dia}}'" wire:click="modal('{{$dia}}','{{$hora}}')" class="cursor-pointer border border-gray-300 px-4 py-2">
+                        <td wire:key="'{{$key}}-{{$dia}}'" wire:click="modal('{{$dia}}','{{$hora}}')" class="hover:bg-blue-200 cursor-pointer border border-gray-300 px-4 py-2">
                             {{ $hora }}
                         </td>
                         @endif
